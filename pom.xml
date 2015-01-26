@@ -127,4 +127,20 @@
         <netbeans.run.params>-J-javaagent:"${current.jrebel.agent.path}" -J-Drebel.log=true ${netbeans.run.params.ide}</netbeans.run.params>
     </properties>
     <name>Close unmodified documents (GIT only)</name>
+    <description>This plugins adds a new action "&lt;i&gt;Close Unmodified Documents&lt;/i&gt;' to the context menu of an editor tab. All editors will be closed except those of files with a Git status modified/added/inConflict/renamed/copied.
+
+&lt;h2&gt;Updates in 1.0.0:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;initial version&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt;Documents, which have an unknown or no VCS status, will be closed too.&lt;/p&gt;
+
+&lt;p&gt;Provide defects, request for enhancements and feedback at &lt;a href="https://github.com/markiewb/nb-git-close-unmodified-documents/issues"&gt;https://github.com/markiewb/nb-git-close-unmodified-documents/issues&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Compatible to NB 7.4+&lt;/p&gt;
+&lt;p&gt;Legal disclaimer: Code is licensed under Apache 2.0. &lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=K4CMP92RZELE2"&gt;&lt;img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" alt="btn_donate_SM.gif"&gt;&lt;/a&gt;
+&lt;/p&gt;
+</description>
 </project>
