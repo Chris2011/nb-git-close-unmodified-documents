@@ -8,12 +8,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.13</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
@@ -33,7 +27,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.11.1</version>
+                <version>3.13.3</version>
                 <extensions>true</extensions>
                 <configuration>
                     <!-- keep it for backwards compatibility to previous versions-->
@@ -67,11 +61,6 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-libs-git</artifactId>
-            <version>RELEASE74</version>
-        </dependency>
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-netbeans-modules-projectapi</artifactId>
             <version>RELEASE74</version>
         </dependency>
         <dependency>
@@ -134,7 +123,7 @@
 &lt;li&gt;initial version&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt;Documents, which have an unknown or no VCS status, will be closed too.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Editor/documents, which have an unknown or no VCS status, will be closed too.&lt;/p&gt;
 
 &lt;p&gt;Provide defects, request for enhancements and feedback at &lt;a href="https://github.com/markiewb/nb-git-close-unmodified-documents/issues"&gt;https://github.com/markiewb/nb-git-close-unmodified-documents/issues&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Compatible to NB 7.4+&lt;/p&gt;
 &lt;p&gt;Legal disclaimer: Code is licensed under Apache 2.0. &lt;/p&gt;
