@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.markiewb.netbeans.plugins</groupId>
     <artifactId>GitCloseUnmodifiedDocuments</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <build>
         <plugins>
@@ -113,14 +113,24 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <netbeans.run.params.ide></netbeans.run.params.ide>
-        <netbeans.run.params>-J-javaagent:"${current.jrebel.agent.path}" -J-Drebel.log=true ${netbeans.run.params.ide}</netbeans.run.params>
+        <!--<netbeans.run.params>-J-javaagent:"${current.jrebel.agent.path}" -J-Drebel.log=true ${netbeans.run.params.ide}</netbeans.run.params>-->
     </properties>
     <name>Close unmodified documents (GIT only)</name>
     <description>This plugins adds a new action "&lt;i&gt;Close Unmodified Documents&lt;/i&gt;' to the context menu of an editor tab. All editors will be closed except those of files with a Git status modified/added/inConflict/renamed/copied.
 
-&lt;h2&gt;Updates in 1.0.0:&lt;/h2&gt;
+&lt;h2&gt;Changes&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;initial version&lt;/li&gt;
+	&lt;li&gt;1.0.1
+		&lt;ul&gt;
+                    			&lt;li&gt;&lt;a href="https://github.com/markiewb/nb-git-close-unmodified-documents/issues/1"&gt;Issue 1&lt;/a&gt;: Performance improvement&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;1.0.0
+		&lt;ul&gt;
+                    			&lt;li&gt;Initial version&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/li&gt;
+
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Editor/documents, which have an unknown or no VCS status, will be closed too.&lt;/p&gt;
