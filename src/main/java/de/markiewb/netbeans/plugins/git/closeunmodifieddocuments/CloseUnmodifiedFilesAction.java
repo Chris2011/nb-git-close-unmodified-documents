@@ -101,7 +101,13 @@ public final class CloseUnmodifiedFilesAction implements ActionListener {
                 client = repo.createClient();
                 Map<File, GitStatus> status = client.getStatus(filesInRepoArray, new ProgressMonitor.DefaultProgressMonitor());
                 for (File fileInRepo : filesInRepoArray) {
+                    if (null == status) {
+                        continue;
+                    }
                     final GitStatus state = status.get(fileInRepo);
+                    if (null == state) {
+                        continue;
+                    }
                     boolean isModified = modifiedStates.contains(state.getStatusIndexWC());
                     isModified |= state.isConflict();
                     isModified |= state.isCopied();
