@@ -6,6 +6,11 @@ This plugins adds a new action "<i>Close Unmodified Documents</i>' to the contex
 
 <h2>Changes</h2>
 <ul>
+	<li>2.1.0
+		<ul>
+                    			<li><a href="https://github.com/markiewb/nb-git-close-unmodified-documents/issues/5">Issue 5</a>: Don't block UI, when the closing takes too long</li>
+		</ul>
+	</li>
 	<li>2.0.0
 		<ul>
                     			<li><a href="https://github.com/markiewb/nb-git-close-unmodified-documents/issues/3">Issue 3</a>: Support of Hg/SVN (use new API from NB 8.1, which is much faster)</li>
@@ -38,4 +43,3 @@ This plugins adds a new action "<i>Close Unmodified Documents</i>' to the contex
 <p>
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=K4CMP92RZELE2"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" alt="btn_donate_SM.gif"></a>
 </p>
-
