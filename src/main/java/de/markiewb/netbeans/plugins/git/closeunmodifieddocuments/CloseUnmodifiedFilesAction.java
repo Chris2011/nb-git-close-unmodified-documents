@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import javax.swing.SwingUtilities;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
@@ -29,6 +30,7 @@ import org.openide.cookies.SaveCookie;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObject;
 import org.openide.util.NbBundle.Messages;
+import org.openide.util.RequestProcessor;
 import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
@@ -57,9 +59,8 @@ public final class CloseUnmodifiedFilesAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        for (TopComponent tc : getUnchangedDocuments()) {
-            tc.close();
-        }
+
+        closedUnchangedDocuments();
     }
 
     /**
@@ -68,44 +69,70 @@ public final class CloseUnmodifiedFilesAction implements ActionListener {
      *
      * @return
      */
-    public Collection<TopComponent> getUnchangedDocuments() {
+    public void closedUnchangedDocuments() {
 
+        // run in EDT to get all current TCs
         final WindowManager wm = WindowManager.getDefault();
-        final LinkedHashSet<TopComponent> result = new LinkedHashSet<>();
+        final Collection<TopComponent> topComponents = new ArrayList<>();
+
         for (TopComponent tc : getCurrentEditors()) {
             if (!wm.isEditorTopComponent(tc)) {
                 continue;
             }
-
-            //check for the format of an unsaved file
-            boolean isUnsaved = null != tc.getLookup().lookup(SaveCookie.class);
-            if (isUnsaved) {
-                continue;
-            }
-
-            DataObject dob = tc.getLookup().lookup(DataObject.class);
-            if (dob != null) {
-                final FileObject file = dob.getPrimaryFile();
-                if (null == file) {
-                    continue;
-                }
-                Object attribute = file.getAttribute(ATTRIBUTE_IS_MODIFIED);
-                if (null != attribute) {
-                    if (Boolean.FALSE.equals(attribute)) {
-                        result.add(tc);
-                    } else {
-                        //file is modified, nop
-                    }
-                } else {
-                    //could not determine status, close this document too
-                    result.add(tc);
-                }
-            } else {
-                //close diff windows too
-                result.add(tc);
-            }
+            topComponents.add(tc);
         }
-        return result;
+
+        // run outside EDT to get the modified FileObjects behind the TCs
+        // https://github.com/markiewb/nb-git-close-unmodified-documents/issues/5
+        Runnable getModifiedTcs = new Runnable() {
+            @Override
+            public void run() {
+                final Collection<TopComponent> result = new LinkedHashSet<>();
+                for (final TopComponent tc : topComponents) {
+
+                    // check for the format of an unsaved file
+                    boolean isUnsaved = null != tc.getLookup().lookup(SaveCookie.class);
+                    if (isUnsaved) {
+                        continue;
+                    }
+
+                    DataObject dob = tc.getLookup().lookup(DataObject.class);
+                    if (dob != null) {
+                        final FileObject file = dob.getPrimaryFile();
+                        if (null == file) {
+                            continue;
+                        }
+                        Object attribute = file.getAttribute(ATTRIBUTE_IS_MODIFIED);
+                        if (null != attribute) {
+                            if (Boolean.FALSE.equals(attribute)) {
+                                result.add(tc);
+                            } else {
+                        //file is modified, nop
+                            }
+                        } else {
+                    //could not determine status, close this document too
+                            result.add(tc);
+                        }
+                    } else {
+                //close diff windows too
+                        result.add(tc);
+                    }
+                }
+
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        final Collection<TopComponent> tcs = result;
+
+                        // run inside EDT to handle with TCs
+                        for (TopComponent tc : tcs) {
+                            tc.close();
+                        }
+                    }
+                });
+            }
+        };
+        RequestProcessor.getDefault().post(getModifiedTcs);
     }
 
     private Collection<TopComponent> getCurrentEditors() {
