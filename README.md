@@ -3,7 +3,7 @@
 <hr>
 
 # nb-git-close-unmodified-documents
-NetBeans plugin which allows to close the editor windows, which are unmodified (Git only). Implements https://netbeans.org/bugzilla/show_bug.cgi?id=219850
+NetBeans plugin which allows to close the editor windows, which are unmodified. Implements https://netbeans.org/bugzilla/show_bug.cgi?id=219850
 
 This plugins adds a new action "<i>Close Unmodified Documents</i>' to the context menu of an editor tab. All editors will be closed except those of files with a VCS status of modified/added/inConflict/renamed/copied.
 <p>Supported VCS are Git, Mercurial and Subversion. Editor/documents, which have an unknown or no VCS status, will be closed too.</p>
